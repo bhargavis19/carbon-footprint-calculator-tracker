@@ -1,0 +1,125 @@
+.activity-card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 32px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* Heading */
+.activity-card h3 {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.activity-card p {
+  text-align: center;
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 28px;
+}
+
+/* Quick add buttons */
+.quick-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 680px;
+  margin: 0 auto 28px auto;
+}
+
+.quick-buttons button {
+  padding: 10px 16px;
+  border-radius: 12px;
+  border: none;
+  background: #f3f4f6;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.quick-buttons button:hover {
+  background: #e5e7eb;
+  transform: translateY(-1px);
+}
+
+/* Form layout */
+.activity-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+/* Labels */
+.activity-form label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 6px;
+}
+
+/* Inputs */
+.activity-form input,
+.activity-form select {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+.activity-form input:focus,
+.activity-form select:focus {
+  border-color: #22c55e;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
+}
+
+/* Full-width rows */
+.activity-form > div:nth-child(3),
+.activity-form > div:nth-child(4),
+.activity-form button {
+  grid-column: span 2;
+}
+
+/* Submit button */
+.activity-form button {
+  max-width: 760px;
+  width: 100%;
+  margin-top: 12px;
+  padding: 14px;
+  border-radius: 14px;
+  border: none;
+  background: #22c55e;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.activity-form button:hover {
+  background: #16a34a;
+  transform: translateY(-1px);
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .activity-form {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+  }
+
+  .activity-form > div,
+  .activity-form button {
+    grid-column: span 1;
+  }
+}
