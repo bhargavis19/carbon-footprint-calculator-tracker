@@ -1,14 +1,19 @@
 const Activity = require("../models/Activity");
 const calculateCarbon = require("../utils/carbonCalculator");
 
+/* ADD ACTIVITY */
 exports.addActivity = async (req, res) => {
   try {
     const { category, activityType, value, date } = req.body;
 
     const carbonKg = calculateCarbon(activityType, value);
 
+    if (carbonKg === null || carbonKg === undefined) {
+      return res.status(400).json({ message: "Invalid activity type" });
+    }
+
     const activity = await Activity.create({
-      userId: req.user,
+      userId: req.user.id,   // ✅ FIXED
       category,
       activityType,
       value,
@@ -18,21 +23,25 @@ exports.addActivity = async (req, res) => {
 
     res.status(201).json(activity);
   } catch (error) {
+    console.error("Add activity error:", error);
     res.status(400).json({ message: error.message });
   }
 };
 
+/* GET ACTIVITIES */
 exports.getActivities = async (req, res) => {
   try {
-    const activities = await Activity.find({ userId: req.user }).sort({
-      date: -1
-    });
+    const activities = await Activity.find({
+      userId: req.user.id     // ✅ FIXED
+    }).sort({ date: -1 });
+
     res.json(activities);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
+/* UPDATE ACTIVITY */
 exports.updateActivity = async (req, res) => {
   try {
     const { category, activityType, value, date } = req.body;
@@ -40,7 +49,10 @@ exports.updateActivity = async (req, res) => {
     const carbonKg = calculateCarbon(activityType, value);
 
     const activity = await Activity.findOneAndUpdate(
-      { _id: req.params.id, userId: req.user },
+      {
+        _id: req.params.id,
+        userId: req.user.id    // ✅ FIXED
+      },
       { category, activityType, value, carbonKg, date },
       { new: true }
     );
@@ -55,11 +67,12 @@ exports.updateActivity = async (req, res) => {
   }
 };
 
+/* DELETE ACTIVITY */
 exports.deleteActivity = async (req, res) => {
   try {
     const activity = await Activity.findOneAndDelete({
       _id: req.params.id,
-      userId: req.user
+      userId: req.user.id     // ✅ FIXED
     });
 
     if (!activity) {
